@@ -30,7 +30,7 @@ class Homepage extends StatelessWidget {
                   ),
                 ),
                 SizedBox(
-                  width: Get.width * 0.1,
+                  width: Get.width * 0.15,
                 ),
               ],
             ),
@@ -39,12 +39,12 @@ class Homepage extends StatelessWidget {
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: const [
-                MainBox(
+              children: [
+                const MainBox(
                   title: 'RSA',
                   onTap: null,
                 ),
-                MainBox(
+                const MainBox(
                   title: "ACE",
                   onTap: null,
                 )
