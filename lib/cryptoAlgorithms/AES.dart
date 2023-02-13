@@ -12,7 +12,7 @@ class MyAES {
   generateKey({String? keytext}) {
     if (keytext != null) {
       if (keytext.length != 32)
-        throw "the lenght of the keytext should equal 16";
+        throw "The lenght of the keytext should be equal 32";
       keyString = keytext;
       key = Key.fromUtf8(keytext);
     } else {
@@ -23,7 +23,7 @@ class MyAES {
 
   generateIV({String? ivtext}) {
     if (ivtext != null) {
-      if (ivtext.length != 16) throw "the lenght of the ivtext should equal 16";
+      if (ivtext.length != 16) throw "The lenght of the ivtext should be equal 16";
       ivString = ivtext;
       iv = IV.fromUtf8(ivtext);
     } else {
@@ -32,10 +32,9 @@ class MyAES {
     }
   }
 
-  // will return the ciphertext  version and the iv
   Encrypted encrypt({required String plainText}) {
-    if (key == null) throw ("there is no key, Initialzate it first");
-    if (iv == null) throw ("there is no iv, Initialzate it first");
+    if (key == null) throw ("There is no key, Initialzate it first");
+    if (iv == null) throw ("There is no iv, Initialzate it first");
 
     final encrypter = Encrypter(AES(key!));
     var cipherText = encrypter.encrypt(plainText, iv: iv);
@@ -43,8 +42,8 @@ class MyAES {
   }
 
   decrypt({required Encrypted cipherText}) {
-    if (key == null) throw ("there is no key, Initialzate it first");
-    if (iv == null) throw ("there is no iv, Initialzate it first");
+    if (key == null) throw ("There is no key, Initialzate it first");
+    if (iv == null) throw ("There is no iv, Initialzate it first");
 
     final encrypter = Encrypter(AES(key!));
     return encrypter.decrypt(cipherText, iv: iv);

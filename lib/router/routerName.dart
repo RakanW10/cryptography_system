@@ -9,7 +9,7 @@ List<GetPage> routerApp = [
   ),
   GetPage(
     name: Routes.homepage,
-    page: () => const Homepage(),
+    page: () => Homepage(),
   ),
 ];
 
