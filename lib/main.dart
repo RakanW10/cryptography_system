@@ -1,9 +1,8 @@
-import 'package:cryptography_system/cryptoAlgorithms/AES.dart';
+import 'package:cryptography_system/cryptoAlgorithms/RSA.dart';
 import 'package:cryptography_system/router/routerName.dart';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-
-import 'package:encrypt/encrypt.dart' as e;
 
 void main() => runApp(const MyApp());
 
@@ -22,20 +21,17 @@ class MyApp extends StatelessWidget {
   }
 }
 
-test() {
-  final plainText = 'Rakan is going to university';
-  // var o = MyAES();
-  // o.generateKey(keytext: "asdffdsaasdffdsaasdffdsaasdffdsa");
+test() async {
+  print("object");
+  MyRSA o = MyRSA(keys: await MyRSA.generateKey(numberOfBits: 1024));
+  print(o.keys.publicKey);
+  print(o.keys.privateKey);
 
-  // o.generateIV(ivtext: "asdffdsaasdffdsa");
-  // print(o.ivString);
-  // print(o.iv!.base64);
+  String plaintext = "Rakan is going to university";
 
-  // print(o.keyString);
-  // print(o.key!.base64);
-  // print("=" * 100);
+  String ciphertext = await o.encript(plaintext: plaintext);
 
-  // var cipher = o.encrypt(plainText: plainText);
-  // print(cipher.base64);
-  // print(o.decrypt(cipherText: cipher));
+  String d = await o.decript(ciphertext: ciphertext);
+
+  print(d);
 }
