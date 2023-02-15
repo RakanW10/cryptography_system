@@ -1,34 +1,33 @@
 import 'package:fast_rsa/fast_rsa.dart';
 
 class MyRSA {
-  KeyPair keys;
-
-  MyRSA({required this.keys});
+  MyRSA();
 
   static generateKey({required int numberOfBits}) async {
     return await RSA.generate(numberOfBits);
   }
 
-  encript({required String plaintext}) async {
-    var ciphertext = await RSA.encryptPKCS1v15(plaintext, keys.publicKey);
+  static encript({required String plaintext, required String publicKey}) async {
+    var ciphertext = await RSA.encryptPKCS1v15(plaintext, publicKey);
     return ciphertext;
   }
 
-  decript({required String ciphertext}) async {
-    var plaintext = await RSA.decryptPKCS1v15(ciphertext, keys.privateKey);
+  decript({required String ciphertext, required String privateKey}) async {
+    var plaintext = await RSA.decryptPKCS1v15(ciphertext, privateKey);
     return plaintext;
   }
 
-  sign({required String plaintext}) async {
-    var signature =
-        await RSA.signPKCS1v15(plaintext, Hash.SHA256, keys.privateKey);
+  sign({required String plaintext, required String privateKey}) async {
+    var signature = await RSA.signPKCS1v15(plaintext, Hash.SHA256, privateKey);
     return signature;
   }
 
   Future<bool> verify(
-      {required String signature, required String plaintext}) async {
-    bool verified = await RSA.verifyPKCS1v15(
-        signature, plaintext, Hash.SHA256, keys.publicKey);
+      {required String signature,
+      required String plaintext,
+      required String publicKey}) async {
+    bool verified =
+        await RSA.verifyPKCS1v15(signature, plaintext, Hash.SHA256, publicKey);
     return verified;
   }
 }

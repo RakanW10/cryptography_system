@@ -1,15 +1,19 @@
+import 'dart:io';
+
+import 'package:cryptography_system/controllers/RSApageController.dart';
+import 'package:cryptography_system/fileUtils.dart';
 import 'package:cryptography_system/router/routerName.dart';
 import 'package:cryptography_system/style.dart';
 import 'package:cryptography_system/views/components/keysCard.dart';
-import 'package:cryptography_system/views/components/mainBox.dart';
 import 'package:cryptography_system/views/components/serviceBox.dart';
 import 'package:cryptography_system/views/components/titleCard.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class RSAPage extends StatelessWidget {
-  const RSAPage({super.key});
+  RSAPage({super.key});
 
+  final RSApageController _controller = Get.find();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -45,7 +49,7 @@ class RSAPage extends StatelessWidget {
               ],
             ),
             const SizedBox(
-              height: 18,
+              height: 8,
             ),
             Container(
               height: Get.height * 0.65,
@@ -62,33 +66,71 @@ class RSAPage extends StatelessWidget {
                   const SizedBox(
                     height: 8,
                   ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: const [
-                      KeysCard(
-                        title: "Public key",
-                        content: "123453223432",
-                        icon1: Icons.file_upload_outlined,
-                        onTap1: null,
-                        icon2: Icons.file_download_outlined,
-                        onTap2: null,
-                      ),
-                      KeysCard(
-                        title: "Private key",
-                        content: "N\\A",
-                        icon1: Icons.remove_red_eye,
-                        onTap1: null,
-                        icon2: Icons.file_download_outlined,
-                        onTap2: null,
-                      ),
-                    ],
-                  ),
-                  SizedBox(
+                  GetBuilder<RSApageController>(builder: (context) {
+                    return Row(
+                      children: [
+                        KeysCard(
+                          title: "Public key",
+                          content: _controller.publicKey == null
+                              ? "N\\A"
+                              : "${extractKey(key: _controller.publicKey!, public: true)}...",
+                          icon1: Icons.file_upload_outlined,
+                          onTap1: null,
+                          icon2: Icons.file_download_outlined,
+                          onTap2: () {
+                            _controller.readPublicKey();
+                          },
+                        ),
+                        const SizedBox(
+                          width: 10,
+                        ),
+                        KeysCard(
+                          title: "Private key",
+                          content: _controller.privateKey == null
+                              ? "N\\A"
+                              : "${extractKey(key: _controller.privateKey!, public: false)}...",
+                          icon1: Icons.remove_red_eye,
+                          onTap1: null,
+                          icon2: Icons.file_download_outlined,
+                          onTap2: () {
+                            _controller.readPrivateKey();
+                          },
+                        ),
+                        const SizedBox(
+                          width: 10,
+                        ),
+                        Container(
+                          height: Get.height * 0.05,
+                          width: Get.width * 0.03,
+                          decoration: BoxDecoration(
+                              color: const Color(0xFFC9CDD2),
+                              borderRadius: BorderRadius.circular(8),
+                              boxShadow: const [
+                                BoxShadow(
+                                  blurRadius: 4,
+                                  color: Colors.grey,
+                                )
+                              ]),
+                          child: IconButton(
+                            icon: Icon(
+                              Icons.vpn_key_rounded,
+                              color: AppColors.primary,
+                            ),
+                            onPressed: () async {
+                              await _controller.generateKey();
+                              writeCounter("test");
+                            },
+                          ),
+                        ),
+                      ],
+                    );
+                  }),
+                  const SizedBox(
                     height: 50,
                   ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: [
+                    children: const [
                       ServiceBox(
                         title: "Signing",
                         onTap: null,
@@ -114,5 +156,20 @@ class RSAPage extends StatelessWidget {
         ),
       ),
     );
+  }
+}
+
+extractKey({required String key, required bool public}) {
+  if (public) {
+    return key
+        .replaceAll(RegExp("-----BEGIN RSA PUBLIC KEY-----"), "")
+        .replaceAll(RegExp("-----END RSA PUBLIC KEY-----"), "")
+        .substring(1, 15);
+  } else {
+    return key
+        .replaceAll(RegExp("-----BEGIN RSA PRIVATE KEY-----"), "")
+        .replaceAll(RegExp("-----END RSA PRIVATE KEY-----"), "")
+        .substring(1, 15);
+    ;
   }
 }

@@ -40,6 +40,8 @@ dependencies:
   encrypt: ^5.0.1
   flip_card: ^0.7.0
   fast_rsa: ^3.5.3
+  file_picker: ^5.2.5
+  path_provider: ^2.0.12
   # rsa_encrypt: ^2.0.0
 
 

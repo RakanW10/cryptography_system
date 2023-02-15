@@ -1,4 +1,5 @@
-import 'package:cryptography_system/cryptoAlgorithms/RSA.dart';
+import 'dart:io';
+
 import 'package:cryptography_system/router/routerName.dart';
 
 import 'package:flutter/material.dart';
@@ -11,6 +12,7 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    test();
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Material App',
@@ -21,15 +23,6 @@ class MyApp extends StatelessWidget {
 }
 
 test() async {
-  MyRSA o = MyRSA(keys: await MyRSA.generateKey(numberOfBits: 1024));
-  print(o.keys.publicKey);
-  print(o.keys.privateKey);
-
-  String plaintext = "Rakan is going to university";
-
-  String ciphertext = await o.encript(plaintext: plaintext);
-
-  String d = await o.decript(ciphertext: ciphertext);
-
-  print(d);
+  var x = File("cryptography_system/lib");
+  x.create();
 }

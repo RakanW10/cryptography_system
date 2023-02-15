@@ -34,7 +34,7 @@ class KeysCard extends StatelessWidget {
           children: [
             Container(
               clipBehavior: Clip.antiAlias,
-              width: Get.width * 0.4,
+              width: Get.width * 0.36,
               decoration: BoxDecoration(
                 color: Colors.transparent,
                 borderRadius: BorderRadius.circular(8),

@@ -1,3 +1,4 @@
+import 'package:cryptography_system/router/BindingClasses.dart';
 import 'package:cryptography_system/views/RSApage.dart';
 import 'package:cryptography_system/views/homepage.dart';
 import 'package:cryptography_system/views/splachScreen.dart';
@@ -14,7 +15,8 @@ List<GetPage> routerApp = [
   ),
   GetPage(
     name: Routes.RSAPage,
-    page: () => const RSAPage(),
+    page: () => RSAPage(),
+    binding: RSApageBinding(),
   ),
 ];
 
