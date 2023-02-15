@@ -1,6 +1,8 @@
 import 'package:cryptography_system/router/routerName.dart';
 import 'package:cryptography_system/style.dart';
 import 'package:cryptography_system/views/components/keysCard.dart';
+import 'package:cryptography_system/views/components/mainBox.dart';
+import 'package:cryptography_system/views/components/serviceBox.dart';
 import 'package:cryptography_system/views/components/titleCard.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -80,7 +82,31 @@ class RSAPage extends StatelessWidget {
                         onTap2: null,
                       ),
                     ],
-                  )
+                  ),
+                  SizedBox(
+                    height: 50,
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: [
+                      ServiceBox(
+                        title: "Signing",
+                        onTap: null,
+                      ),
+                      ServiceBox(
+                        title: "Verifying",
+                        onTap: null,
+                      ),
+                      ServiceBox(
+                        title: "Encryption",
+                        onTap: null,
+                      ),
+                      ServiceBox(
+                        title: "Decryption",
+                        onTap: null,
+                      ),
+                    ],
+                  ),
                 ],
               ),
             )
