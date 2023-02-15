@@ -1,4 +1,5 @@
 import 'package:cryptography_system/controllers/homepageController.dart';
+import 'package:cryptography_system/router/routerName.dart';
 import 'package:cryptography_system/style.dart';
 import 'package:cryptography_system/views/components/mainBox.dart';
 import 'package:cryptography_system/views/components/mainBoxBack.dart';
@@ -56,13 +57,10 @@ class _HomepageState extends State<Homepage> {
                     front: MainBox(
                       title: 'RSA',
                       onTap: () {
-                        print("object");
+                        Get.toNamed(Routes.RSAPage);
                       },
                       onHover: (p0) {
-                        print(p0);
-                        if (p0) {
-                          _homepageController.cardController1.toggleCard();
-                        }
+                        _homepageController.cardController1.toggleCard();
                       },
                     ),
                     back: MainBoxBack(
@@ -70,7 +68,7 @@ class _HomepageState extends State<Homepage> {
                       description:
                           "RSA is a popular public key cryptography algorithm that uses prime factorization for secure data transmission. It has two keys, a public key for encryption and a private key for decryption, ensuring that only the intended recipient can access the encrypted information. RSA is widely used in digital signatures, software protection, and secure communication protocols.",
                       onTap: () {
-                        print("object");
+                        Get.toNamed(Routes.RSAPage);
                       },
                     ),
                   ),

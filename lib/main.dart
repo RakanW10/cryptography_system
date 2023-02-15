@@ -11,7 +11,6 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    test();
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Material App',
@@ -22,7 +21,6 @@ class MyApp extends StatelessWidget {
 }
 
 test() async {
-  print("object");
   MyRSA o = MyRSA(keys: await MyRSA.generateKey(numberOfBits: 1024));
   print(o.keys.publicKey);
   print(o.keys.privateKey);
