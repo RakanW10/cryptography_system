@@ -203,7 +203,7 @@ class RSADecryptionPage extends StatelessWidget {
                                     );
                                     return;
                                   }
-                                  String plaintext = await MyRSA.decript(
+                                  String plaintext = await MyRSA.decrypt(
                                     ciphertext: _controller.file1!,
                                     privateKey: _controller.privateKey!,
                                   );

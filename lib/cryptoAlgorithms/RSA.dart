@@ -9,12 +9,12 @@ class MyRSA {
     return await RSA.generate(numberOfBits);
   }
 
-  static encript({required String plaintext, required String publicKey}) async {
+  static encrypt({required String plaintext, required String publicKey}) async {
     var ciphertext = await RSA.encryptPKCS1v15(plaintext, publicKey);
     return ciphertext;
   }
 
-  static decript(
+  static decrypt(
       {required String ciphertext, required String privateKey}) async {
     var plaintext = await RSA.decryptPKCS1v15(ciphertext, privateKey);
     return plaintext;
