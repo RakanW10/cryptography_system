@@ -14,3 +14,9 @@ class RSAEncryptionBinding extends Bindings {
     Get.put(RSApageController());
   }
 }
+class RSADecryptionBinding extends Bindings {
+  @override
+  void dependencies() {
+    Get.put(RSApageController());
+  }
+}

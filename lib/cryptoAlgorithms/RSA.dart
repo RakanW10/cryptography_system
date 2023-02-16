@@ -12,7 +12,8 @@ class MyRSA {
     return ciphertext;
   }
 
-  decript({required String ciphertext, required String privateKey}) async {
+  static decript(
+      {required String ciphertext, required String privateKey}) async {
     var plaintext = await RSA.decryptPKCS1v15(ciphertext, privateKey);
     return plaintext;
   }

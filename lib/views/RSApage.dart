@@ -154,9 +154,9 @@ class RSAPage extends StatelessWidget {
                         title: "Encryption",
                         onTap: () => Get.toNamed(Routes.RSAEncryptionPage),
                       ),
-                      const ServiceBox(
+                      ServiceBox(
                         title: "Decryption",
-                        onTap: null,
+                        onTap: () => Get.toNamed(Routes.RSADecryptionPage),
                       ),
                     ],
                   ),

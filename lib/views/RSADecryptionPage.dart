@@ -10,8 +10,8 @@ import 'package:cryptography_system/views/components/uploadBox.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class RSAEncryptionPage extends StatelessWidget {
-  RSAEncryptionPage({super.key});
+class RSADecryptionPage extends StatelessWidget {
+  RSADecryptionPage({super.key});
 
   final RSApageController _controller = Get.find();
   @override
@@ -187,24 +187,25 @@ class RSAEncryptionPage extends StatelessWidget {
                                 height: 8,
                               ),
                               btn(
-                                title: "Encrypt & Download",
+                                title: "Decrypt & Download",
                                 onTap: () async {
                                   if (_controller.file1 == null ||
                                       _controller.publicKey == null) {
                                     Get.snackbar(
                                       "Error",
-                                      "The is no file or public key.",
+                                      "The is no file or private key.",
                                       colorText: Colors.white,
                                     );
                                     return;
                                   }
-                                  String ciphertext = await MyRSA.encript(
-                                      plaintext: _controller.file1!,
-                                      publicKey: _controller.publicKey!);
+                                  String plaintext = await MyRSA.decript(
+                                    ciphertext: _controller.file1!,
+                                    privateKey: _controller.privateKey!,
+                                  );
 
                                   writeFile(
-                                    name: "ciphertext.txt",
-                                    str: ciphertext,
+                                    name: "plaintext.txt",
+                                    str: plaintext,
                                   );
                                 },
                               ),
