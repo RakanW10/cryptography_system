@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 class TitleCard extends StatelessWidget {
   const TitleCard({super.key, required this.title});
   final String title;
+
   @override
   Widget build(BuildContext context) {
     return Container(

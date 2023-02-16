@@ -23,12 +23,14 @@ class MyAES {
   }
 
   static decrypt({
-    required Encrypted cipherText,
+    required String cipherText,
     required Key key,
     required IV iv,
   }) {
-    final encrypter = Encrypter(AES(key!));
-    return encrypter.decrypt(cipherText, iv: iv);
+    final encrypter = Encrypter(AES(key));
+    Encrypted temp = Encrypted.fromBase64(cipherText);
+
+    return encrypter.decrypt(temp, iv: iv);
   }
 }
 

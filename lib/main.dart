@@ -1,8 +1,4 @@
-import 'dart:io';
-
 import 'package:cryptography_system/router/routerName.dart';
-import 'package:file_picker/file_picker.dart';
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -13,7 +9,6 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // test();
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Material App',
@@ -21,9 +16,4 @@ class MyApp extends StatelessWidget {
       getPages: routerApp,
     );
   }
-}
-
-test() async {
-  var f = await FilePicker.platform.saveFile(fileName: "o.txt");
-  File(f!).writeAsStringSync("contents");
 }

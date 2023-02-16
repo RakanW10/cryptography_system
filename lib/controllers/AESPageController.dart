@@ -21,7 +21,7 @@ class AESPageController extends GetxController {
   generateKey() {
     keyString = getRandomString(32);
     key = MyAES.generateKey(keyString: keyString!);
-    ivString = getRandomString(32);
+    ivString = getRandomString(16);
     iv = MyAES.generateIV(ivString: ivString!);
     update();
   }
@@ -50,10 +50,6 @@ class AESPageController extends GetxController {
     file1StatusTitle = "Upload another file";
     update();
   }
-
-  // encrypt() {
-  //   MyAES.encrypt(plainText: plainText, key: key, iv: iv)
-  // }
 }
 
 //Start: Just to generate a random string

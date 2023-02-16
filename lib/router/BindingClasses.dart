@@ -43,3 +43,17 @@ class AESPageBinding extends Bindings {
     Get.put(AESPageController());
   }
 }
+
+class AESEncryptionBinding extends Bindings {
+  @override
+  void dependencies() {
+    Get.put(AESPageController());
+  }
+}
+
+class AESDecryptionBinding extends Bindings {
+  @override
+  void dependencies() {
+    Get.put(AESPageController());
+  }
+}

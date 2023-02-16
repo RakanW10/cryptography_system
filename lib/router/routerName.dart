@@ -1,5 +1,7 @@
 import 'package:cryptography_system/router/BindingClasses.dart';
-import 'package:cryptography_system/views/AES.dart';
+import 'package:cryptography_system/views/AESDecryptionPage.dart';
+import 'package:cryptography_system/views/AESPage.dart';
+import 'package:cryptography_system/views/AESEncryptionPage.dart';
 import 'package:cryptography_system/views/RSADecryptionPage.dart';
 import 'package:cryptography_system/views/RSAEncryptionPage.dart';
 import 'package:cryptography_system/views/RSASigningPage.dart';
@@ -48,6 +50,16 @@ List<GetPage> routerApp = [
     page: () => AESPage(),
     binding: AESPageBinding(),
   ),
+  GetPage(
+    name: Routes.AESEncryptionPage,
+    page: () => AESEncryptionPage(),
+    binding: AESEncryptionBinding(),
+  ),
+  GetPage(
+    name: Routes.AESDecryptionPage,
+    page: () => AESDecryptionPage(),
+    binding: AESDecryptionBinding(),
+  ),
 ];
 
 class Routes {
@@ -59,4 +71,6 @@ class Routes {
   static String RSASigningPage = "/RSASigningPage";
   static String RSAVerifyingPage = "/RSAVerifyingPage";
   static String AESPage = "/AESPage";
+  static String AESEncryptionPage = "/AESEncryptionPage";
+  static String AESDecryptionPage = "/AESDecryptionPage";
 }

@@ -1,8 +1,7 @@
 import 'dart:io';
 
 import 'package:cryptography_system/controllers/AESPageController.dart';
-import 'package:cryptography_system/controllers/RSApageController.dart';
-import 'package:cryptography_system/cryptoAlgorithms/AES.dart';
+
 import 'package:cryptography_system/fileUtils.dart';
 import 'package:cryptography_system/router/routerName.dart';
 import 'package:cryptography_system/style.dart';
@@ -171,14 +170,14 @@ class AESPage extends StatelessWidget {
                         title: "Encryption",
                         onTap: () {
                           _controller.resetFiles();
-                          // return Get.toNamed(Routes.RSAEncryptionPage);
+                          return Get.toNamed(Routes.AESEncryptionPage);
                         },
                       ),
                       ServiceBox(
                         title: "Decryption",
                         onTap: () {
                           _controller.resetFiles();
-                          // return Get.toNamed(Routes.RSADecryptionPage);
+                          return Get.toNamed(Routes.AESDecryptionPage);
                         },
                       ),
                     ],
