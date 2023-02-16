@@ -7,3 +7,10 @@ class RSApageBinding extends Bindings {
     Get.put(RSApageController());
   }
 }
+
+class RSAEncryptionBinding extends Bindings {
+  @override
+  void dependencies() {
+    Get.put(RSApageController());
+  }
+}

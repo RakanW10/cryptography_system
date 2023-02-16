@@ -1,17 +1,22 @@
 import 'dart:io';
 
 import 'package:cryptography_system/controllers/RSApageController.dart';
+import 'package:cryptography_system/cryptoAlgorithms/RSA.dart';
 import 'package:cryptography_system/fileUtils.dart';
 import 'package:cryptography_system/router/routerName.dart';
 import 'package:cryptography_system/style.dart';
+import 'package:cryptography_system/views/components/btn.dart';
 import 'package:cryptography_system/views/components/keysCard.dart';
 import 'package:cryptography_system/views/components/serviceBox.dart';
 import 'package:cryptography_system/views/components/titleCard.dart';
+import 'package:cryptography_system/views/components/uploadBox.dart';
+import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 
-class RSAPage extends StatelessWidget {
-  RSAPage({super.key});
+class RSAEncryptionPage extends StatelessWidget {
+  RSAEncryptionPage({super.key});
 
   final RSApageController _controller = Get.find();
   @override
@@ -137,28 +142,82 @@ class RSAPage extends StatelessWidget {
                     );
                   }),
                   const SizedBox(
-                    height: 50,
+                    height: 16,
                   ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: [
-                      const ServiceBox(
-                        title: "Signing",
-                        onTap: null,
-                      ),
-                      const ServiceBox(
-                        title: "Verifying",
-                        onTap: null,
-                      ),
-                      ServiceBox(
-                        title: "Encryption",
-                        onTap: () => Get.toNamed(Routes.RSAEncryptionPage),
-                      ),
-                      const ServiceBox(
-                        title: "Decryption",
-                        onTap: null,
-                      ),
-                    ],
+                  Container(
+                    height: Get.height * 0.65 * 0.55,
+                    width: Get.width * 0.9,
+                    decoration: BoxDecoration(
+                      color: const Color(0xFFC9CDD2),
+                      borderRadius: BorderRadius.circular(8),
+                    ),
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Container(
+                          height: Get.height * 0.65 * 0.55,
+                          width: Get.width * 0.25,
+                          alignment: Alignment.center,
+                          decoration: BoxDecoration(
+                            color: const Color(0x4CFFFFFF),
+                            borderRadius: BorderRadius.circular(8),
+                          ),
+                          child: Text(
+                            "Encryption",
+                            style: TextStyle(
+                              color: AppColors.primary,
+                              fontSize: 40,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ),
+                        Container(
+                          height: Get.height * 0.65 * 0.55,
+                          width: Get.width * 0.65,
+                          alignment: Alignment.center,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(8),
+                          ),
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: [
+                              GetBuilder<RSApageController>(builder: (_) {
+                                return UploadBox(
+                                    statusTitle: _controller.statusTitle,
+                                    onTap: () {
+                                      _controller.readFile1();
+                                    });
+                              }),
+                              SizedBox(
+                                height: 8,
+                              ),
+                              btn(
+                                title: "Encrypt & Download",
+                                onTap: () async {
+                                  if (_controller.file1 == null ||
+                                      _controller.publicKey == null) {
+                                    Get.snackbar(
+                                      "Error",
+                                      "The is no file or public key.",
+                                      colorText: Colors.white,
+                                    );
+                                    return;
+                                  }
+                                  String ciphertext = await MyRSA.encript(
+                                      plaintext: _controller.file1!,
+                                      publicKey: _controller.publicKey!);
+
+                                  writeFile(
+                                    name: "ciphertext.txt",
+                                    str: ciphertext,
+                                  );
+                                },
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
                 ],
               ),
