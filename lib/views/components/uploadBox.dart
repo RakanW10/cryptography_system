@@ -33,6 +33,7 @@ class UploadBox extends StatelessWidget {
             children: [
               SvgPicture.asset(
                 "assets/icons/file-upload-export-icon 1.svg",
+                height: subTitle == null ? 170 : 150,
               ),
               Text(
                 statusTitle,

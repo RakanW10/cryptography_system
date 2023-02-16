@@ -76,7 +76,9 @@ class _HomepageState extends State<Homepage> {
                     controller: _homepageController.cardController2,
                     front: MainBox(
                       title: 'AES',
-                      onTap: () {},
+                      onTap: () {
+                        Get.toNamed(Routes.AESPage);
+                      },
                       onHover: (p0) {
                         if (p0) {
                           _homepageController.cardController2.toggleCard();
@@ -84,7 +86,9 @@ class _HomepageState extends State<Homepage> {
                       },
                     ),
                     back: MainBoxBack(
-                      onTap: () {},
+                      onTap: () {
+                        Get.toNamed(Routes.AESPage);
+                      },
                       title: 'AES',
                       description:
                           "AES (Advanced Encryption Standard) is a widely used symmetric key encryption algorithm. It uses a fixed block size of 128 bits and supports key sizes of 128, 192, and 256 bits. AES operates on a fixed number of rounds, depending on the key size. It is fast and secure, making it suitable for a variety of applications, including encrypted data storage, secure internet communications, and more.",

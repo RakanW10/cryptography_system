@@ -62,7 +62,9 @@ class RSAEncryptionPage extends StatelessWidget {
               margin: const EdgeInsets.symmetric(vertical: 38, horizontal: 38),
               child: Column(
                 children: [
-                  const TitleCard(),
+                  const TitleCard(
+                    title: 'RSA',
+                  ),
                   const SizedBox(
                     height: 8,
                   ),

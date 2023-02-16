@@ -4,47 +4,29 @@ import 'package:encrypt/encrypt.dart';
 
 // This class build base on https://pub.dev/packages/encrypt
 class MyAES {
-  String? ivString;
-  IV? iv;
-  String? keyString;
-  Key? key;
-
-  generateKey({String? keytext}) {
-    if (keytext != null) {
-      if (keytext.length != 32)
-        throw "The lenght of the keytext should be equal 32";
-      keyString = keytext;
-      key = Key.fromUtf8(keytext);
-    } else {
-      keyString = getRandomString(32);
-      key = Key.fromUtf8(keyString!);
-    }
+  static Key generateKey({required String keyString}) {
+    return Key.fromUtf8(keyString);
   }
 
-  generateIV({String? ivtext}) {
-    if (ivtext != null) {
-      if (ivtext.length != 16) throw "The lenght of the ivtext should be equal 16";
-      ivString = ivtext;
-      iv = IV.fromUtf8(ivtext);
-    } else {
-      ivString = getRandomString(16);
-      iv = IV.fromUtf8(ivString!);
-    }
+  static generateIV({required String ivString}) {
+    return IV.fromUtf8(ivString);
   }
 
-  Encrypted encrypt({required String plainText}) {
-    if (key == null) throw ("There is no key, Initialzate it first");
-    if (iv == null) throw ("There is no iv, Initialzate it first");
-
-    final encrypter = Encrypter(AES(key!));
+  static Encrypted encrypt({
+    required String plainText,
+    required Key key,
+    required IV iv,
+  }) {
+    final encrypter = Encrypter(AES(key));
     var cipherText = encrypter.encrypt(plainText, iv: iv);
     return cipherText;
   }
 
-  decrypt({required Encrypted cipherText}) {
-    if (key == null) throw ("There is no key, Initialzate it first");
-    if (iv == null) throw ("There is no iv, Initialzate it first");
-
+  static decrypt({
+    required Encrypted cipherText,
+    required Key key,
+    required IV iv,
+  }) {
     final encrypter = Encrypter(AES(key!));
     return encrypter.decrypt(cipherText, iv: iv);
   }

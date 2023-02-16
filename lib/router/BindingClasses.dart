@@ -1,3 +1,4 @@
+import 'package:cryptography_system/controllers/AESPageController.dart';
 import 'package:cryptography_system/controllers/RSApageController.dart';
 import 'package:get/get.dart';
 
@@ -33,5 +34,12 @@ class RSAVerifyingBinding extends Bindings {
   @override
   void dependencies() {
     Get.put(RSApageController());
+  }
+}
+
+class AESPageBinding extends Bindings {
+  @override
+  void dependencies() {
+    Get.put(AESPageController());
   }
 }

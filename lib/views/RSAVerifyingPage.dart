@@ -61,7 +61,9 @@ class RSAVerifyingPage extends StatelessWidget {
               margin: const EdgeInsets.symmetric(vertical: 38, horizontal: 38),
               child: Column(
                 children: [
-                  const TitleCard(),
+                  const TitleCard(
+                    title: 'RSA',
+                  ),
                   const SizedBox(
                     height: 8,
                   ),
@@ -157,7 +159,7 @@ class RSAVerifyingPage extends StatelessWidget {
                             borderRadius: BorderRadius.circular(8),
                           ),
                           child: Text(
-                            "Encryption",
+                            "Verifying",
                             style: TextStyle(
                               color: AppColors.primary,
                               fontSize: 40,

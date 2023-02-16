@@ -1,6 +1,8 @@
 import 'dart:io';
 
+import 'package:cryptography_system/controllers/AESPageController.dart';
 import 'package:cryptography_system/controllers/RSApageController.dart';
+import 'package:cryptography_system/cryptoAlgorithms/AES.dart';
 import 'package:cryptography_system/fileUtils.dart';
 import 'package:cryptography_system/router/routerName.dart';
 import 'package:cryptography_system/style.dart';
@@ -10,10 +12,10 @@ import 'package:cryptography_system/views/components/titleCard.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class RSAPage extends StatelessWidget {
-  RSAPage({super.key});
+class AESPage extends StatelessWidget {
+  AESPage({super.key});
 
-  final RSApageController _controller = Get.find();
+  final AESPageController _controller = Get.find();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -63,51 +65,72 @@ class RSAPage extends StatelessWidget {
               child: Column(
                 children: [
                   const TitleCard(
-                    title: 'RSA',
+                    title: 'AES',
                   ),
                   const SizedBox(
                     height: 8,
                   ),
-                  GetBuilder<RSApageController>(builder: (context) {
+                  GetBuilder<AESPageController>(builder: (context) {
                     return Row(
                       children: [
                         KeysCard(
-                          title: "Public key",
-                          content: _controller.publicKey == null
+                          title: "Key",
+                          content: _controller.keyString == null
                               ? "N\\A"
-                              : "${extractKey(key: _controller.publicKey!, public: true)}...",
+                              : "${_controller.keyString!.substring(0, 15)}...",
                           icon1: Icons.file_upload_outlined,
                           onTap1: () {
-                            if (_controller.publicKey == null) return;
+                            if (_controller.keyString == null) {
+                              Get.snackbar(
+                                "Error",
+                                "There is no key.",
+                                colorText: Colors.white,
+                              );
+                              return;
+                            }
+
                             writeFile(
-                              name: "publicKey.txt",
-                              str: _controller.publicKey!,
+                              name: "Key.txt",
+                              str: _controller.keyString!,
                             );
+                            print(_controller.key!.base64);
                           },
                           icon2: Icons.file_download_outlined,
-                          onTap2: () {
-                            _controller.readPublicKey();
+                          onTap2: () async {
+                            String? keySting = await readFile();
+                            if (keySting == null) return;
+                            _controller.readKey(keySting);
                           },
                         ),
                         const SizedBox(
                           width: 10,
                         ),
                         KeysCard(
-                          title: "Private key",
-                          content: _controller.privateKey == null
+                          title: "IV",
+                          content: _controller.ivString == null
                               ? "N\\A"
-                              : "${extractKey(key: _controller.privateKey!, public: false)}...",
+                              : "${_controller.ivString!.substring(0, 15)}...",
                           icon1: Icons.file_upload_outlined,
                           onTap1: () {
-                            if (_controller.privateKey == null) return;
+                            if (_controller.ivString == null) {
+                              Get.snackbar(
+                                "Error",
+                                "There is no iv.",
+                                colorText: Colors.white,
+                              );
+                              return;
+                            }
+
                             writeFile(
-                              name: "privateKey.txt",
-                              str: _controller.privateKey!,
+                              name: "IV.txt",
+                              str: _controller.ivString!,
                             );
                           },
                           icon2: Icons.file_download_outlined,
-                          onTap2: () {
-                            _controller.readPrivateKey();
+                          onTap2: () async {
+                            String? file = await readFile();
+                            if (file == null) return;
+                            _controller.readIv(file);
                           },
                         ),
                         const SizedBox(
@@ -142,34 +165,20 @@ class RSAPage extends StatelessWidget {
                     height: 50,
                   ),
                   Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
-                      ServiceBox(
-                        title: "Signing",
-                        onTap: () {
-                          _controller.resetFiles();
-                          return Get.toNamed(Routes.RSASigningPage);
-                        },
-                      ),
-                      ServiceBox(
-                        title: "Verifying",
-                        onTap: () {
-                          _controller.resetFiles();
-                          return Get.toNamed(Routes.RSAVerifyingPage);
-                        },
-                      ),
                       ServiceBox(
                         title: "Encryption",
                         onTap: () {
                           _controller.resetFiles();
-                          return Get.toNamed(Routes.RSAEncryptionPage);
+                          // return Get.toNamed(Routes.RSAEncryptionPage);
                         },
                       ),
                       ServiceBox(
                         title: "Decryption",
                         onTap: () {
                           _controller.resetFiles();
-                          return Get.toNamed(Routes.RSADecryptionPage);
+                          // return Get.toNamed(Routes.RSADecryptionPage);
                         },
                       ),
                     ],
@@ -181,20 +190,5 @@ class RSAPage extends StatelessWidget {
         ),
       ),
     );
-  }
-}
-
-extractKey({required String key, required bool public}) {
-  if (public) {
-    return key
-        .replaceAll(RegExp("-----BEGIN RSA PUBLIC KEY-----"), "")
-        .replaceAll(RegExp("-----END RSA PUBLIC KEY-----"), "")
-        .substring(1, 12);
-  } else {
-    return key
-        .replaceAll(RegExp("-----BEGIN RSA PRIVATE KEY-----"), "")
-        .replaceAll(RegExp("-----END RSA PRIVATE KEY-----"), "")
-        .substring(1, 12);
-    ;
   }
 }
