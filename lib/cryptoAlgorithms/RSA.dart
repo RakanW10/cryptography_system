@@ -1,4 +1,6 @@
 import 'package:fast_rsa/fast_rsa.dart';
+import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class MyRSA {
   MyRSA();
@@ -18,17 +20,26 @@ class MyRSA {
     return plaintext;
   }
 
-  sign({required String plaintext, required String privateKey}) async {
+  static sign({required String plaintext, required String privateKey}) async {
     var signature = await RSA.signPKCS1v15(plaintext, Hash.SHA256, privateKey);
     return signature;
   }
 
-  Future<bool> verify(
-      {required String signature,
-      required String plaintext,
-      required String publicKey}) async {
-    bool verified =
-        await RSA.verifyPKCS1v15(signature, plaintext, Hash.SHA256, publicKey);
-    return verified;
+  static verify({
+    required String signature,
+    required String plaintext,
+    required String publicKey,
+  }) async {
+    try {
+      bool verified = await RSA.verifyPKCS1v15(
+          signature, plaintext, Hash.SHA256, publicKey);
+      return verified;
+    } catch (e) {
+      Get.snackbar(
+        "Result",
+        "The dosen't signature match",
+        colorText: Colors.white,
+      );
+    }
   }
 }

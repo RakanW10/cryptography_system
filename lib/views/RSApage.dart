@@ -142,21 +142,33 @@ class RSAPage extends StatelessWidget {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
-                      const ServiceBox(
+                      ServiceBox(
                         title: "Signing",
-                        onTap: null,
+                        onTap: () {
+                          _controller.resetFiles();
+                          return Get.toNamed(Routes.RSASigningPage);
+                        },
                       ),
-                      const ServiceBox(
+                      ServiceBox(
                         title: "Verifying",
-                        onTap: null,
+                        onTap: () {
+                          _controller.resetFiles();
+                          return Get.toNamed(Routes.RSAVerifyingPage);
+                        },
                       ),
                       ServiceBox(
                         title: "Encryption",
-                        onTap: () => Get.toNamed(Routes.RSAEncryptionPage),
+                        onTap: () {
+                          _controller.resetFiles();
+                          return Get.toNamed(Routes.RSAEncryptionPage);
+                        },
                       ),
                       ServiceBox(
                         title: "Decryption",
-                        onTap: () => Get.toNamed(Routes.RSADecryptionPage),
+                        onTap: () {
+                          _controller.resetFiles();
+                          return Get.toNamed(Routes.RSADecryptionPage);
+                        },
                       ),
                     ],
                   ),

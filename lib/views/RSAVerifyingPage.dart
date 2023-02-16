@@ -10,9 +10,8 @@ import 'package:cryptography_system/views/components/uploadBox.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class RSADecryptionPage extends StatelessWidget {
-  RSADecryptionPage({super.key});
-
+class RSAVerifyingPage extends StatelessWidget {
+  RSAVerifyingPage({super.key});
   final RSApageController _controller = Get.find();
   @override
   Widget build(BuildContext context) {
@@ -158,7 +157,7 @@ class RSADecryptionPage extends StatelessWidget {
                             borderRadius: BorderRadius.circular(8),
                           ),
                           child: Text(
-                            "Decryption",
+                            "Encryption",
                             style: TextStyle(
                               color: AppColors.primary,
                               fontSize: 40,
@@ -179,37 +178,67 @@ class RSADecryptionPage extends StatelessWidget {
                               const SizedBox(
                                 height: 8,
                               ),
-                              GetBuilder<RSApageController>(builder: (_) {
-                                return UploadBox(
-                                    statusTitle: _controller.file1StatusTitle,
-                                    onTap: () {
-                                      _controller.readFile1();
-                                    });
-                              }),
+                              Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceAround,
+                                children: [
+                                  GetBuilder<RSApageController>(builder: (_) {
+                                    return UploadBox(
+                                        isHalf: true,
+                                        subTitle: "Signed Message",
+                                        statusTitle:
+                                            _controller.file1StatusTitle,
+                                        onTap: () {
+                                          _controller.readFile1();
+                                        });
+                                  }),
+                                  GetBuilder<RSApageController>(builder: (_) {
+                                    return UploadBox(
+                                        isHalf: true,
+                                        subTitle: "Original Message",
+                                        statusTitle:
+                                            _controller.file2StatusTitle,
+                                        onTap: () {
+                                          _controller.readFile2();
+                                        });
+                                  }),
+                                ],
+                              ),
                               const SizedBox(
                                 height: 8,
                               ),
                               btn(
-                                title: "Decrypt & Download",
+                                title: "Verify",
                                 onTap: () async {
                                   if (_controller.file1 == null ||
-                                      _controller.publicKey == null) {
+                                      _controller.publicKey == null ||
+                                      _controller.file2 == null) {
                                     Get.snackbar(
                                       "Error",
-                                      "The is no file or private key.",
+                                      "upload the files or public key.",
                                       colorText: Colors.white,
                                     );
                                     return;
                                   }
-                                  String plaintext = await MyRSA.decript(
-                                    ciphertext: _controller.file1!,
-                                    privateKey: _controller.privateKey!,
-                                  );
 
-                                  writeFile(
-                                    name: "plaintext.txt",
-                                    str: plaintext,
-                                  );
+                                  var result = await MyRSA.verify(
+                                      signature: _controller.file1!,
+                                      plaintext: _controller.file2!,
+                                      publicKey: _controller.publicKey!);
+                                  if (result == null) return;
+                                  if (result == true) {
+                                    Get.snackbar(
+                                      "Result",
+                                      "The Signature match",
+                                      colorText: Colors.white,
+                                    );
+                                  } else {
+                                    Get.snackbar(
+                                      "Result",
+                                      "The dosen't signature match",
+                                      colorText: Colors.white,
+                                    );
+                                  }
                                 },
                               ),
                             ],

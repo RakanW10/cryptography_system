@@ -176,9 +176,12 @@ class RSAEncryptionPage extends StatelessWidget {
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.start,
                             children: [
+                              const SizedBox(
+                                height: 8,
+                              ),
                               GetBuilder<RSApageController>(builder: (_) {
                                 return UploadBox(
-                                    statusTitle: _controller.statusTitle,
+                                    statusTitle: _controller.file1StatusTitle,
                                     onTap: () {
                                       _controller.readFile1();
                                     });

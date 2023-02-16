@@ -10,8 +10,8 @@ import 'package:cryptography_system/views/components/uploadBox.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class RSADecryptionPage extends StatelessWidget {
-  RSADecryptionPage({super.key});
+class RSASigningPage extends StatelessWidget {
+  RSASigningPage({super.key});
 
   final RSApageController _controller = Get.find();
   @override
@@ -158,7 +158,7 @@ class RSADecryptionPage extends StatelessWidget {
                             borderRadius: BorderRadius.circular(8),
                           ),
                           child: Text(
-                            "Decryption",
+                            "Sgining",
                             style: TextStyle(
                               color: AppColors.primary,
                               fontSize: 40,
@@ -190,7 +190,7 @@ class RSADecryptionPage extends StatelessWidget {
                                 height: 8,
                               ),
                               btn(
-                                title: "Decrypt & Download",
+                                title: "Sign & Download",
                                 onTap: () async {
                                   if (_controller.file1 == null ||
                                       _controller.publicKey == null) {
@@ -201,14 +201,13 @@ class RSADecryptionPage extends StatelessWidget {
                                     );
                                     return;
                                   }
-                                  String plaintext = await MyRSA.decript(
-                                    ciphertext: _controller.file1!,
-                                    privateKey: _controller.privateKey!,
-                                  );
+                                  String signed = await MyRSA.sign(
+                                      plaintext: _controller.file1!,
+                                      privateKey: _controller.privateKey!);
 
                                   writeFile(
-                                    name: "plaintext.txt",
-                                    str: plaintext,
+                                    name: "signed.txt",
+                                    str: signed,
                                   );
                                 },
                               ),

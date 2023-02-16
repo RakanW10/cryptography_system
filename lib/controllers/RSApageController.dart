@@ -7,8 +7,19 @@ class RSApageController extends GetxController {
   String? publicKey;
   String? privateKey;
   String? file1;
-  String? result;
-  String statusTitle = "Upload a file";
+  String? file2;
+
+  String file1StatusTitle = "Upload a file";
+  String file2StatusTitle = "Upload a file";
+
+  resetFiles() {
+    file1 = null;
+    file2 = null;
+    file1StatusTitle = "Upload a file";
+    file2StatusTitle = "Upload a file";
+    update();
+  }
+
   generateKey() async {
     KeyPair keyPair = await MyRSA.generateKey(numberOfBits: 1024);
     publicKey = keyPair.publicKey;
@@ -32,7 +43,14 @@ class RSApageController extends GetxController {
   readFile1() async {
     file1 = await readFile();
     if (file1 == null) return;
-    statusTitle = "Upload another file";
+    file1StatusTitle = "Upload another file";
+    update();
+  }
+
+  readFile2() async {
+    file2 = await readFile();
+    if (file2 == null) return;
+    file2StatusTitle = "Upload another file";
     update();
   }
 }

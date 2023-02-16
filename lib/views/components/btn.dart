@@ -14,7 +14,7 @@ class btn extends StatelessWidget {
     return ElevatedButton(
       onPressed: onTap,
       style: ElevatedButton.styleFrom(
-        minimumSize: Size(Get.width, 85),
+        minimumSize: Size(Get.width, 80),
         backgroundColor: const Color(0xFF315685),
       ),
       child: Text(

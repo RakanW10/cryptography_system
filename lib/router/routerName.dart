@@ -1,6 +1,8 @@
 import 'package:cryptography_system/router/BindingClasses.dart';
 import 'package:cryptography_system/views/RSADecryptionPage.dart';
 import 'package:cryptography_system/views/RSAEncryptionPage.dart';
+import 'package:cryptography_system/views/RSASigningPage.dart';
+import 'package:cryptography_system/views/RSAVerifyingPage.dart';
 import 'package:cryptography_system/views/RSApage.dart';
 import 'package:cryptography_system/views/homepage.dart';
 import 'package:cryptography_system/views/splachScreen.dart';
@@ -30,6 +32,16 @@ List<GetPage> routerApp = [
     page: () => RSADecryptionPage(),
     binding: RSADecryptionBinding(),
   ),
+  GetPage(
+    name: Routes.RSASigningPage,
+    page: () => RSASigningPage(),
+    binding: RSASigningBinding(),
+  ),
+  GetPage(
+    name: Routes.RSAVerifyingPage,
+    page: () => RSAVerifyingPage(),
+    binding: RSAVerifyingBinding(),
+  ),
 ];
 
 class Routes {
@@ -38,4 +50,6 @@ class Routes {
   static String RSAPage = "/RSAPage";
   static String RSAEncryptionPage = "/RSAEncryptionPage";
   static String RSADecryptionPage = "/RSADecryptionPage";
+  static String RSASigningPage = "/RSASigningPage";
+  static String RSAVerifyingPage = "/RSAVerifyingPage";
 }
