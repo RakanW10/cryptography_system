@@ -1,6 +1,7 @@
 import 'dart:math';
 import 'dart:typed_data';
 
+import 'package:cryptography_system/Constants.dart';
 import 'package:cryptography_system/cryptoAlgorithms/AES.dart';
 import 'package:cryptography_system/fileUtils.dart';
 import 'package:encrypt/encrypt.dart';
@@ -24,6 +25,8 @@ class AESPageController extends GetxController {
     key = MyAES.generateKey(keyString: keyString!);
     ivString = getRandomString(16);
     iv = MyAES.generateIV(ivString: ivString!);
+    storage.write("AESkeyString", keyString);
+    storage.write("AESivString", ivString);
     update();
   }
 
@@ -50,6 +53,22 @@ class AESPageController extends GetxController {
     if (file1 == null) return;
     file1StatusTitle = "Upload another file";
     update();
+  }
+
+  @override
+  void onInit() {
+    keyString = storage.read("AESkeyString");
+    if (keyString == null) {
+      generateKey();
+      return;
+    }
+    key = MyAES.generateKey(keyString: keyString!);
+
+    ivString = storage.read("AESivString");
+    if (ivString == null) {
+      generateKey();
+    }
+    iv = MyAES.generateIV(ivString: ivString!);
   }
 }
 

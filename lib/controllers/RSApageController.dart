@@ -1,5 +1,6 @@
 import 'dart:typed_data';
 
+import 'package:cryptography_system/Constants.dart';
 import 'package:cryptography_system/cryptoAlgorithms/RSA.dart';
 import 'package:cryptography_system/fileUtils.dart';
 import 'package:fast_rsa/fast_rsa.dart';
@@ -26,6 +27,9 @@ class RSApageController extends GetxController {
     KeyPair keyPair = await MyRSA.generateKey(numberOfBits: 1024);
     publicKey = keyPair.publicKey;
     privateKey = keyPair.privateKey;
+    storage.write("publicKey", publicKey);
+    storage.write("privateKey", privateKey);
+
     update();
   }
 
@@ -54,5 +58,11 @@ class RSApageController extends GetxController {
     if (file2 == null) return;
     file2StatusTitle = "Upload another file";
     update();
+  }
+
+  @override
+  void onInit() {
+    publicKey = storage.read("publicKey");
+    privateKey = storage.read("privateKey");
   }
 }

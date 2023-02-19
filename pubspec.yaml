@@ -44,6 +44,7 @@ dependencies:
   path_provider: ^2.0.12
   flutter_svg: ^2.0.1
   dotted_border: ^2.0.0+3
+  get_storage: ^2.0.3
   # rsa_encrypt: ^2.0.0
 
 
