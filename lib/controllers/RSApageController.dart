@@ -34,13 +34,13 @@ class RSApageController extends GetxController {
   }
 
   readPublicKey() async {
-    publicKey = await readFile();
+    publicKey = await readFileAsStirng();
     if (publicKey == null) return;
     update();
   }
 
   readPrivateKey() async {
-    privateKey = await readFile();
+    privateKey = await readFileAsStirng();
     if (privateKey == null) return;
 
     update();
