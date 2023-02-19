@@ -36,15 +36,9 @@ class AESPageController extends GetxController {
     update();
   }
 
-  readIV(String str) {
-    ivString = str;
-    key = MyAES.generateKey(keyString: ivString!);
-    update();
-  }
-
   readIv(String str) {
     ivString = str;
-    key = MyAES.generateKey(keyString: ivString!);
+    iv = MyAES.generateIV(ivString: ivString!);
     update();
   }
 
