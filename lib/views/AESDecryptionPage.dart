@@ -1,3 +1,4 @@
+import 'dart:typed_data';
 import 'package:cryptography_system/controllers/AESPageController.dart';
 import 'package:cryptography_system/cryptoAlgorithms/AES.dart';
 import 'package:cryptography_system/fileUtils.dart';
@@ -7,7 +8,6 @@ import 'package:cryptography_system/views/components/btn.dart';
 import 'package:cryptography_system/views/components/keysCard.dart';
 import 'package:cryptography_system/views/components/titleCard.dart';
 import 'package:cryptography_system/views/components/uploadBox.dart';
-import 'package:encrypt/encrypt.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -88,7 +88,7 @@ class AESDecryptionPage extends StatelessWidget {
                               return;
                             }
 
-                            writeFile(
+                            writeFileAsString(
                               name: "Key.txt",
                               str: _controller.keyString!,
                             );
@@ -119,7 +119,7 @@ class AESDecryptionPage extends StatelessWidget {
                               return;
                             }
 
-                            writeFile(
+                            writeFileAsString(
                               name: "IV.txt",
                               str: _controller.ivString!,
                             );
@@ -225,11 +225,14 @@ class AESDecryptionPage extends StatelessWidget {
                                     );
                                     return;
                                   }
-                                  var ciphertext = MyAES.decrypt(
+                                  var before = DateTime.now();
+                                  Uint8List ciphertext = MyAES.decrypt(
                                     key: _controller.key!,
                                     iv: _controller.iv!,
                                     cipherText: _controller.file1!,
                                   );
+                                  var dif = DateTime.now().difference(before);
+                                  print("======== $dif ========");
                                   writeFile(
                                     name: "plaintext.txt",
                                     str: ciphertext,

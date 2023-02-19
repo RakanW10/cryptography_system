@@ -1,7 +1,5 @@
 import 'package:cryptography_system/controllers/AESPageController.dart';
-import 'package:cryptography_system/controllers/RSApageController.dart';
 import 'package:cryptography_system/cryptoAlgorithms/AES.dart';
-import 'package:cryptography_system/cryptoAlgorithms/RSA.dart';
 import 'package:cryptography_system/fileUtils.dart';
 import 'package:cryptography_system/router/routerName.dart';
 import 'package:cryptography_system/style.dart';
@@ -89,7 +87,7 @@ class AESEncryptionPage extends StatelessWidget {
                               return;
                             }
 
-                            writeFile(
+                            writeFileAsString(
                               name: "Key.txt",
                               str: _controller.keyString!,
                             );
@@ -120,7 +118,7 @@ class AESEncryptionPage extends StatelessWidget {
                               return;
                             }
 
-                            writeFile(
+                            writeFileAsString(
                               name: "IV.txt",
                               str: _controller.ivString!,
                             );
@@ -226,14 +224,17 @@ class AESEncryptionPage extends StatelessWidget {
                                     );
                                     return;
                                   }
+                                  var before = DateTime.now();
                                   var ciphertext = MyAES.encrypt(
-                                      key: _controller.key!,
-                                      iv: _controller.iv!,
-                                      plainText: _controller.file1!);
-
+                                    key: _controller.key!,
+                                    iv: _controller.iv!,
+                                    plainText: _controller.file1!,
+                                  );
+                                  var dif = DateTime.now().difference(before);
+                                  print("======== $dif ========");
                                   writeFile(
                                     name: "ciphertext.txt",
-                                    str: ciphertext.base64,
+                                    str: ciphertext.bytes,
                                   );
                                 },
                               ),

@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:cryptography_system/controllers/RSApageController.dart';
 import 'package:cryptography_system/fileUtils.dart';
 import 'package:cryptography_system/router/routerName.dart';
@@ -79,7 +77,7 @@ class RSAPage extends StatelessWidget {
                           icon1: Icons.file_upload_outlined,
                           onTap1: () {
                             if (_controller.publicKey == null) return;
-                            writeFile(
+                            writeFileAsString(
                               name: "publicKey.txt",
                               str: _controller.publicKey!,
                             );
@@ -100,7 +98,7 @@ class RSAPage extends StatelessWidget {
                           icon1: Icons.file_upload_outlined,
                           onTap1: () {
                             if (_controller.privateKey == null) return;
-                            writeFile(
+                            writeFileAsString(
                               name: "privateKey.txt",
                               str: _controller.privateKey!,
                             );

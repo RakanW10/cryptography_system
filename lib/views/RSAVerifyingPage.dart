@@ -78,7 +78,7 @@ class RSAVerifyingPage extends StatelessWidget {
                           icon1: Icons.file_upload_outlined,
                           onTap1: () {
                             if (_controller.publicKey == null) return;
-                            writeFile(
+                            writeFileAsString(
                               name: "publicKey.txt",
                               str: _controller.publicKey!,
                             );
@@ -99,7 +99,7 @@ class RSAVerifyingPage extends StatelessWidget {
                           icon1: Icons.file_upload_outlined,
                           onTap1: () {
                             if (_controller.privateKey == null) return;
-                            writeFile(
+                            writeFileAsString(
                               name: "privateKey.txt",
                               str: _controller.privateKey!,
                             );
@@ -227,7 +227,6 @@ class RSAVerifyingPage extends StatelessWidget {
                                       signature: _controller.file1!,
                                       plaintext: _controller.file2!,
                                       publicKey: _controller.publicKey!);
-                                  if (result == null) return;
                                   if (result == true) {
                                     Get.snackbar(
                                       "Result",

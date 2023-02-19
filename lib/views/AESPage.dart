@@ -88,10 +88,10 @@ class AESPage extends StatelessWidget {
                               return;
                             }
 
-                            writeFile(
-                              name: "Key.txt",
-                              str: _controller.keyString!,
-                            );
+                            // writeFile(
+                            //   name: "Key.txt",
+                            //   str: _controller.keyString!,
+                            // );
                             print(_controller.key!.base64);
                           },
                           icon2: Icons.file_download_outlined,
@@ -120,10 +120,10 @@ class AESPage extends StatelessWidget {
                               return;
                             }
 
-                            writeFile(
-                              name: "IV.txt",
-                              str: _controller.ivString!,
-                            );
+                            // writeFile(
+                            //   name: "IV.txt",
+                            //   str: _controller.ivString!,
+                            // );
                           },
                           icon2: Icons.file_download_outlined,
                           onTap2: () async {

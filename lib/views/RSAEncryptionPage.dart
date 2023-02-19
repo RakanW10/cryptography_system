@@ -1,3 +1,5 @@
+import 'dart:typed_data';
+
 import 'package:cryptography_system/controllers/RSApageController.dart';
 import 'package:cryptography_system/cryptoAlgorithms/RSA.dart';
 import 'package:cryptography_system/fileUtils.dart';
@@ -79,7 +81,7 @@ class RSAEncryptionPage extends StatelessWidget {
                           icon1: Icons.file_upload_outlined,
                           onTap1: () {
                             if (_controller.publicKey == null) return;
-                            writeFile(
+                            writeFileAsString(
                               name: "publicKey.txt",
                               str: _controller.publicKey!,
                             );
@@ -100,7 +102,7 @@ class RSAEncryptionPage extends StatelessWidget {
                           icon1: Icons.file_upload_outlined,
                           onTap1: () {
                             if (_controller.privateKey == null) return;
-                            writeFile(
+                            writeFileAsString(
                               name: "privateKey.txt",
                               str: _controller.privateKey!,
                             );
@@ -203,10 +205,12 @@ class RSAEncryptionPage extends StatelessWidget {
                                     );
                                     return;
                                   }
-                                  String ciphertext = await MyRSA.encrypt(
+                                  var before = DateTime.now();
+                                  Uint8List ciphertext = await MyRSA.encrypt(
                                       plaintext: _controller.file1!,
                                       publicKey: _controller.publicKey!);
-
+                                  var dif = DateTime.now().difference(before);
+                                  print("======== $dif ========");
                                   writeFile(
                                     name: "ciphertext.txt",
                                     str: ciphertext,

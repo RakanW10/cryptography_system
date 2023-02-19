@@ -1,4 +1,5 @@
 import 'dart:math';
+import 'dart:typed_data';
 
 import 'package:cryptography_system/cryptoAlgorithms/AES.dart';
 import 'package:cryptography_system/fileUtils.dart';
@@ -10,7 +11,7 @@ class AESPageController extends GetxController {
   String? keyString;
   IV? iv;
   String? ivString;
-  String? file1;
+  Uint8List? file1;
   String file1StatusTitle = "Upload a file";
   resetFiles() {
     file1 = null;

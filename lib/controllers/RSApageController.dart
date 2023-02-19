@@ -1,3 +1,5 @@
+import 'dart:typed_data';
+
 import 'package:cryptography_system/cryptoAlgorithms/RSA.dart';
 import 'package:cryptography_system/fileUtils.dart';
 import 'package:fast_rsa/fast_rsa.dart';
@@ -6,8 +8,8 @@ import 'package:get/get.dart';
 class RSApageController extends GetxController {
   String? publicKey;
   String? privateKey;
-  String? file1;
-  String? file2;
+  Uint8List? file1;
+  Uint8List? file2;
 
   String file1StatusTitle = "Upload a file";
   String file2StatusTitle = "Upload a file";
