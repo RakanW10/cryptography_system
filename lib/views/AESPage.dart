@@ -88,15 +88,14 @@ class AESPage extends StatelessWidget {
                               return;
                             }
 
-                            // writeFile(
-                            //   name: "Key.txt",
-                            //   str: _controller.keyString!,
-                            // );
-                            print(_controller.key!.base64);
+                            writeFileAsString(
+                              name: "Key.txt",
+                              str: _controller.keyString!,
+                            );
                           },
                           icon2: Icons.file_download_outlined,
                           onTap2: () async {
-                            String? keySting = await readFile();
+                            String? keySting = await readFileAsStirng();
                             if (keySting == null) return;
                             _controller.readKey(keySting);
                           },
@@ -119,15 +118,14 @@ class AESPage extends StatelessWidget {
                               );
                               return;
                             }
-
-                            // writeFile(
-                            //   name: "IV.txt",
-                            //   str: _controller.ivString!,
-                            // );
+                            writeFileAsString(
+                              name: "IV.txt",
+                              str: _controller.ivString!,
+                            );
                           },
                           icon2: Icons.file_download_outlined,
                           onTap2: () async {
-                            String? file = await readFile();
+                            String? file = await readFileAsStirng();
                             if (file == null) return;
                             _controller.readIv(file);
                           },
